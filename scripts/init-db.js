@@ -15,11 +15,11 @@ const db = new Pool(
   process.env.DATABASE_URL
     ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
     : {
-        host: process.env.DB_HOST || 'localhost',
-        user: process.env.DB_USER || 'postgres',
-        password: process.env.DB_PASSWORD || '',
-        database: process.env.DB_NAME || 'skywave_db',
-      }
+      host: process.env.DB_HOST || 'localhost',
+      user: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || '',
+      database: process.env.DB_NAME || 'skywave_db',
+    }
 );
 
 const initDatabase = async () => {
@@ -41,6 +41,13 @@ const initDatabase = async () => {
       );
     `);
     console.log('✓ destinations table ready');
+
+    // ── Migrations (add missing columns to existing tables) ─
+    await client.query(`
+      ALTER TABLE destinations
+      ADD COLUMN IF NOT EXISTS country VARCHAR(100) NOT NULL DEFAULT '';
+    `);
+    console.log('✓ destinations table migrated');
 
     await client.query(`
       CREATE TABLE IF NOT EXISTS flights (
