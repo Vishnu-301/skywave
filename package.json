@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "init-db": "node scripts/init-db.js",
+    "build": "node scripts/init-db.js"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
