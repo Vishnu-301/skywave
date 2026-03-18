@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { getAllDestinations, getDestinationById } from '../queries/index.js';
+
 const router = express.Router();
-const { getAllDestinations, getDestinationById } = require('../queries');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -27,4 +28,4 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

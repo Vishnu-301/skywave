@@ -1,5 +1,16 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import ejs from 'ejs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import indexRouter from './routes/index.js';
+import flightsRouter from './routes/flights.js';
+import bookingRouter from './routes/booking.js';
+import destinationsRouter from './routes/destinations.js';
+import contactRouter from './routes/contact.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
 
 // View engine
@@ -14,12 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-const indexRouter = require('./routes/index');
-const flightsRouter = require('./routes/flights');
-const bookingRouter = require('./routes/booking');
-const destinationsRouter = require('./routes/destinations');
-const contactRouter = require('./routes/contact');
-
 app.use('/', indexRouter);
 app.use('/flights', flightsRouter);
 app.use('/booking', bookingRouter);
@@ -42,4 +47,4 @@ app.listen(PORT, () => {
   console.log(`SkyWave running on http://localhost:${PORT}`);
 });
 
-module.exports = app;
+export default app;

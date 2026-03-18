@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { searchFlights, getAllFlights, getFlightById } from '../queries/index.js';
+
 const router = express.Router();
-const { searchFlights, getAllFlights, getFlightById } = require('../queries');
 
 // Flight search results
 router.get('/search', async (req, res, next) => {
@@ -47,4 +48,4 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

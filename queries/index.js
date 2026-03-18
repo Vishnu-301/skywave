@@ -1,5 +1,5 @@
 // queries/index.js — JS wrappers around all SQL queries
-const db = require('../db');
+import db from '../db.js';
 
 // ── Destinations ──────────────────────────────────────────
 const getFeaturedDestinations = () =>
@@ -38,7 +38,7 @@ const createBooking = (data) =>
     `INSERT INTO bookings (flight_id, first_name, last_name, email, phone, passengers, class, total_price, booking_ref)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [data.flight_id, data.first_name, data.last_name, data.email,
-     data.phone, data.passengers, data.class, data.total_price, data.booking_ref]
+    data.phone, data.passengers, data.class, data.total_price, data.booking_ref]
   );
 
 const getBookingByRef = (ref) =>
@@ -61,9 +61,4 @@ const saveContact = (name, email, subject, message) =>
 const subscribeNewsletter = (email) =>
   db.query('INSERT IGNORE INTO newsletters (email) VALUES (?)', [email]);
 
-module.exports = {
-  getFeaturedDestinations, getAllDestinations, getDestinationById,
-  searchFlights, getAllFlights, getFlightById, reduceSeats,
-  createBooking, getBookingByRef, updateBookingStatus,
-  saveContact, subscribeNewsletter
-};
+export { getFeaturedDestinations, getAllDestinations, getDestinationById, searchFlights, getAllFlights, getFlightById, reduceSeats, createBooking, getBookingByRef, updateBookingStatus, saveContact, subscribeNewsletter };

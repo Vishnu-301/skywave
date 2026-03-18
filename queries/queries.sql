@@ -10,7 +10,7 @@ CREATE DATABASE IF NOT EXISTS skywave_db;
 USE skywave_db;
 
 CREATE TABLE IF NOT EXISTS destinations (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
+  id          SERIAL PRIMARY KEY,
   name        VARCHAR(100) NOT NULL,
   country     VARCHAR(100) NOT NULL,
   description TEXT,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS destinations (
 );
 
 CREATE TABLE IF NOT EXISTS flights (
-  id               INT AUTO_INCREMENT PRIMARY KEY,
+  id               SERIAL PRIMARY KEY,
   flight_number    VARCHAR(20) NOT NULL,
   origin           VARCHAR(100) NOT NULL,
   destination      VARCHAR(100) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS flights (
 );
 
 CREATE TABLE IF NOT EXISTS bookings (
-  id               INT AUTO_INCREMENT PRIMARY KEY,
+  id               SERIAL PRIMARY KEY,
   flight_id        INT NOT NULL,
   first_name       VARCHAR(100) NOT NULL,
   last_name        VARCHAR(100) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS bookings (
 );
 
 CREATE TABLE IF NOT EXISTS contacts (
-  id         INT AUTO_INCREMENT PRIMARY KEY,
+  id         SERIAL PRIMARY KEY,
   name       VARCHAR(150) NOT NULL,
   email      VARCHAR(150) NOT NULL,
   subject    VARCHAR(255),
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS contacts (
 );
 
 CREATE TABLE IF NOT EXISTS newsletters (
-  id         INT AUTO_INCREMENT PRIMARY KEY,
+  id         SERIAL PRIMARY KEY,
   email      VARCHAR(150) UNIQUE NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { saveContact } from '../queries/index.js';
+
 const router = express.Router();
-const { saveContact } = require('../queries');
 
 router.get('/', (req, res) => {
   res.render('contact', {
@@ -22,4 +23,4 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;

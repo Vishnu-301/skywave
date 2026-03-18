@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { getFeaturedDestinations, subscribeNewsletter } = require('../queries');
+import express from 'express';
+import { getFeaturedDestinations, subscribeNewsletter } from '../queries/index.js';
 
-router.get('/', async (req, res) => {
+const router = express.Router();
+
+router.get('/', async (req, res, next) => {
   try {
     const [destinations] = await getFeaturedDestinations();
     res.render('index', {
@@ -25,4 +26,4 @@ router.post('/newsletter', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

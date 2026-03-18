@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { getFlightById, createBooking, getBookingByRef, reduceSeats } from '../queries/index.js';
+
 const router = express.Router();
-const { getFlightById, createBooking, getBookingByRef, reduceSeats } = require('../queries');
 
 // Booking form
 router.get('/:flightId', async (req, res, next) => {
@@ -60,4 +61,4 @@ router.get('/confirmation/:ref', async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export default router;
