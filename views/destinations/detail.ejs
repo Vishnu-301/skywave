@@ -1,0 +1,38 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<section class="page-hero">
+  <img src="<%= destination.image_url %>" alt="<%= destination.name %>" class="page-hero-img" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content container">
+    <span class="hero-eyebrow"><%= destination.country %></span>
+    <h1><%= destination.name %></h1>
+    <p><%= destination.description %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container dest-detail-layout">
+    <div class="dest-detail-info card">
+      <h2>About <%= destination.name %></h2>
+      <p><%= destination.description %></p>
+      <ul class="dest-meta-list">
+        <li><span>Country</span><strong><%= destination.country %></strong></li>
+        <li><span>Flights from</span><strong class="price">$<%= destination.price_from %></strong></li>
+        <li><span>Status</span><strong class="status status-confirmed">Available</strong></li>
+      </ul>
+      <a href="/flights/search?destination=<%= destination.name %>" class="btn btn-primary btn-full">Find Flights to <%= destination.name %></a>
+    </div>
+
+    <div class="dest-detail-img">
+      <img src="<%= destination.image_url %>" alt="<%= destination.name %>" />
+      <div class="dest-detail-gallery">
+        <img src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=400&auto=format&fit=crop" alt="Travel" />
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&auto=format&fit=crop" alt="Travel" />
+        <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=400&auto=format&fit=crop" alt="Travel" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

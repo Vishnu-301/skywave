@@ -1,0 +1,168 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&auto=format&fit=crop" alt="Sky" class="hero-img" />
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">The World Awaits You</span>
+    <h1 class="hero-title">Fly Beyond<br /><em>Every Horizon</em></h1>
+    <p class="hero-sub">Premium flights to over 120 destinations worldwide. Book smart, fly in style.</p>
+
+    <!-- Search Form -->
+    <form class="search-card" action="/flights/search" method="GET">
+      <div class="search-tabs">
+        <button type="button" class="tab active">One Way</button>
+        <button type="button" class="tab">Round Trip</button>
+      </div>
+      <div class="search-fields">
+        <div class="field-group">
+          <label>From</label>
+          <input type="text" name="origin" placeholder="Lagos, LOS" required />
+        </div>
+        <div class="swap-btn" onclick="swapFields()">⇄</div>
+        <div class="field-group">
+          <label>To</label>
+          <input type="text" name="destination" placeholder="London, LHR" required />
+        </div>
+        <div class="field-group">
+          <label>Date</label>
+          <input type="date" name="date" required />
+        </div>
+        <div class="field-group">
+          <label>Passengers</label>
+          <select name="passengers">
+            <option value="1">1 Adult</option>
+            <option value="2">2 Adults</option>
+            <option value="3">3 Adults</option>
+            <option value="4">4 Adults</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-search">Search Flights</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Destinations</span></div>
+    <div class="stat"><span class="stat-num">2M+</span><span class="stat-label">Happy Travellers</span></div>
+    <div class="stat"><span class="stat-num">99%</span><span class="stat-label">On-time Rate</span></div>
+    <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Support</span></div>
+  </div>
+</section>
+
+<!-- ── WHY SKYWAVE ── -->
+<section class="why-section section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Why Choose Us</span>
+      <h2>Travel That Feels Like You</h2>
+      <p>We're not just a booking engine — we're your travel partner from takeoff to touchdown.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Global Reach</h3>
+        <p>Direct and connecting flights to over 120 cities across 6 continents.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💺</div>
+        <h3>Premium Comfort</h3>
+        <p>From Economy to First Class, every seat is designed for your wellbeing.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure Booking</h3>
+        <p>End-to-end encrypted transactions and instant booking confirmations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Best Price Match</h3>
+        <p>We guarantee the best fares or refund the difference. No questions asked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED DESTINATIONS ── -->
+<section class="destinations-section section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Top Picks</span>
+      <h2>Featured Destinations</h2>
+      <p>Handpicked escapes for every type of traveller.</p>
+    </div>
+    <div class="destinations-grid">
+      <% destinations.forEach(dest => { %>
+      <a href="/destinations/<%= dest.id %>" class="dest-card">
+        <div class="dest-img-wrap">
+          <img src="<%= dest.image_url %>" alt="<%= dest.name %>" loading="lazy" />
+          <div class="dest-overlay"></div>
+        </div>
+        <div class="dest-info">
+          <div>
+            <h3><%= dest.name %></h3>
+            <p><%= dest.country %></p>
+          </div>
+          <div class="dest-price">From $<%= dest.price_from %></div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+    <div class="section-cta">
+      <a href="/destinations" class="btn btn-outline">View All Destinations</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE BANNER ── -->
+<section class="banner-section">
+  <img src="https://images.unsplash.com/photo-1569154941061-e231b4aa8cd7?w=1600&auto=format&fit=crop" alt="Plane wing" class="banner-img" />
+  <div class="banner-overlay"></div>
+  <div class="banner-content container">
+    <h2>First Class, World Class</h2>
+    <p>Upgrade your journey with SkyWave Business and First Class. Enjoy lie-flat beds, gourmet dining and dedicated lounges.</p>
+    <a href="/flights" class="btn btn-white">Explore Classes</a>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="testimonials-section section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Traveller Stories</span>
+      <h2>What Our Passengers Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"SkyWave made my Lagos to London trip seamless. The staff were incredible and the seat was the most comfortable I've ever had."</p>
+        <div class="testimonial-author">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" alt="Adebayo O." />
+          <div><strong>Adebayo O.</strong><span>Lagos → London</span></div>
+        </div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Booked a last-minute flight to Dubai and got an amazing deal. The online process was so smooth, I was checked in within minutes."</p>
+        <div class="testimonial-author">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b2a97d99?w=60&h=60&fit=crop&crop=face" alt="Fatima A." />
+          <div><strong>Fatima A.</strong><span>Abuja → Dubai</span></div>
+        </div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"My family of four flew Business Class to New York. Worth every penny — kids loved it. We're already booking our next trip with SkyWave."</p>
+        <div class="testimonial-author">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="James M." />
+          <div><strong>James M.</strong><span>Lagos → New York</span></div>
+        </div>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

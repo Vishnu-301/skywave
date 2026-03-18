@@ -1,0 +1,49 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<section class="page-hero page-hero--sm">
+  <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=1400&auto=format&fit=crop" alt="Flights" class="page-hero-img" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content container">
+    <h1>All Flights</h1>
+    <p>Browse every route we fly</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="flights-list">
+      <% flights.forEach(flight => { %>
+      <div class="flight-card">
+        <div class="flight-card-route">
+          <div class="route-point">
+            <span class="route-city"><%= flight.origin %></span>
+            <span class="route-time"><%= new Date(flight.departure_time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) %></span>
+            <span class="route-date"><%= new Date(flight.departure_time).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) %></span>
+          </div>
+          <div class="route-line">
+            <span class="plane-icon">✈</span>
+            <div class="line"></div>
+          </div>
+          <div class="route-point">
+            <span class="route-city"><%= flight.destination %></span>
+            <span class="route-time"><%= new Date(flight.arrival_time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) %></span>
+          </div>
+        </div>
+        <div class="flight-card-meta">
+          <span class="flight-num"><%= flight.flight_number %></span>
+          <span class="flight-class badge-<%= flight.class %>"><%= flight.class %></span>
+          <span class="seats"><%= flight.seats_available %> seats</span>
+          <span class="status status-<%= flight.status %>"><%= flight.status %></span>
+        </div>
+        <div class="flight-card-price">
+          <div class="price">$<%= parseFloat(flight.price).toFixed(2) %></div>
+          <a href="/booking/<%= flight.id %>" class="btn btn-primary btn-sm">Book</a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

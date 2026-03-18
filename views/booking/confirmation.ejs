@@ -1,0 +1,41 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<section class="section confirm-section">
+  <div class="container">
+    <div class="confirm-card card">
+      <div class="confirm-icon">✅</div>
+      <h1>Booking Confirmed!</h1>
+      <p class="confirm-sub">Your flight has been booked successfully. A confirmation email has been sent to <strong><%= booking.email %></strong>.</p>
+
+      <div class="confirm-ref">
+        Booking Reference: <span><%= booking.booking_ref %></span>
+      </div>
+
+      <div class="confirm-details">
+        <div class="confirm-route">
+          <div class="sum-city"><%= booking.origin %></div>
+          <span class="sum-arrow">✈</span>
+          <div class="sum-city"><%= booking.destination %></div>
+        </div>
+        <ul class="summary-details">
+          <li><span>Passenger</span><strong><%= booking.first_name %> <%= booking.last_name %></strong></li>
+          <li><span>Flight</span><strong><%= booking.flight_number %></strong></li>
+          <li><span>Departure</span><strong><%= new Date(booking.departure_time).toLocaleString('en-GB', {dateStyle:'full', timeStyle:'short'}) %></strong></li>
+          <li><span>Arrival</span><strong><%= new Date(booking.arrival_time).toLocaleString('en-GB', {dateStyle:'medium', timeStyle:'short'}) %></strong></li>
+          <li><span>Passengers</span><strong><%= booking.passengers %></strong></li>
+          <li><span>Class</span><strong class="badge-<%= booking.class %>"><%= booking.class %></strong></li>
+          <li><span>Total Paid</span><strong class="price">$<%= parseFloat(booking.total_price).toFixed(2) %></strong></li>
+          <li><span>Status</span><strong class="status status-confirmed">Confirmed</strong></li>
+        </ul>
+      </div>
+
+      <div class="confirm-actions">
+        <a href="/" class="btn btn-outline">Back to Home</a>
+        <a href="/flights/search" class="btn btn-primary">Book Another</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

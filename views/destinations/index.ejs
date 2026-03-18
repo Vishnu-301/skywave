@@ -1,0 +1,40 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<section class="page-hero page-hero--sm">
+  <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&auto=format&fit=crop" alt="Destinations" class="page-hero-img" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content container">
+    <h1>Our Destinations</h1>
+    <p>Discover the world's most beautiful places with SkyWave</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Explore</span>
+      <h2>Where Will You Go Next?</h2>
+    </div>
+    <div class="destinations-grid destinations-grid--full">
+      <% destinations.forEach(dest => { %>
+      <a href="/destinations/<%= dest.id %>" class="dest-card">
+        <div class="dest-img-wrap">
+          <img src="<%= dest.image_url %>" alt="<%= dest.name %>" loading="lazy" />
+          <div class="dest-overlay"></div>
+          <% if (dest.featured) { %><span class="dest-badge">Featured</span><% } %>
+        </div>
+        <div class="dest-info">
+          <div>
+            <h3><%= dest.name %></h3>
+            <p><%= dest.country %></p>
+          </div>
+          <div class="dest-price">From $<%= dest.price_from %></div>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

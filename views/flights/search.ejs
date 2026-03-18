@@ -1,0 +1,81 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<section class="page-hero page-hero--sm">
+  <img src="https://images.unsplash.com/photo-1474302771297-40206d821ec2?w=1400&auto=format&fit=crop" alt="Airport" class="page-hero-img" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content container">
+    <h1>Search Flights</h1>
+    <p>Find your perfect flight at the best price</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Search Form (inline) -->
+    <form class="search-bar-inline" action="/flights/search" method="GET">
+      <input type="text" name="origin" placeholder="From" value="<%= query.origin || '' %>" />
+      <input type="text" name="destination" placeholder="To" value="<%= query.destination || '' %>" />
+      <input type="date" name="date" value="<%= query.date || '' %>" />
+      <select name="passengers">
+        <% [1,2,3,4].forEach(n => { %>
+        <option value="<%= n %>" <%= query.passengers == n ? 'selected' : '' %>><%= n %> Pax</option>
+        <% }) %>
+      </select>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Results -->
+    <% if (query.origin) { %>
+      <p class="results-count">
+        <% if (flights.length) { %>
+          <strong><%= flights.length %> flight(s)</strong> found from <strong><%= query.origin %></strong> to <strong><%= query.destination %></strong>
+        <% } else { %>
+          No flights found for that route and date. Try different dates.
+        <% } %>
+      </p>
+
+      <div class="flights-list">
+        <% flights.forEach(flight => { %>
+        <div class="flight-card">
+          <div class="flight-card-route">
+            <div class="route-point">
+              <span class="route-city"><%= flight.origin %></span>
+              <span class="route-time"><%= new Date(flight.departure_time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) %></span>
+            </div>
+            <div class="route-line">
+              <span class="plane-icon">✈</span>
+              <div class="line"></div>
+              <span class="duration">Direct</span>
+            </div>
+            <div class="route-point">
+              <span class="route-city"><%= flight.destination %></span>
+              <span class="route-time"><%= new Date(flight.arrival_time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) %></span>
+            </div>
+          </div>
+          <div class="flight-card-meta">
+            <span class="flight-num"><%= flight.flight_number %></span>
+            <span class="flight-class badge-<%= flight.class %>"><%= flight.class %></span>
+            <span class="seats"><%= flight.seats_available %> seats left</span>
+          </div>
+          <div class="flight-card-price">
+            <div class="price">$<%= parseFloat(flight.price).toFixed(2) %></div>
+            <span class="price-label">per person</span>
+            <a href="/booking/<%= flight.id %>" class="btn btn-primary btn-sm">Book</a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <div class="empty-icon">✈</div>
+        <h3>Where are you headed?</h3>
+        <p>Enter your origin, destination and travel date above to find available flights.</p>
+      </div>
+    <% } %>
+
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

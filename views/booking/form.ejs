@@ -1,0 +1,94 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<section class="page-hero page-hero--sm">
+  <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1400&auto=format&fit=crop" alt="Booking" class="page-hero-img" />
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content container">
+    <h1>Book Your Flight</h1>
+    <p>Complete your booking in minutes</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container booking-layout">
+
+    <!-- Flight Summary -->
+    <div class="booking-summary card">
+      <h3>Flight Summary</h3>
+      <div class="summary-route">
+        <div class="sum-city"><%= flight.origin %></div>
+        <span class="sum-arrow">✈</span>
+        <div class="sum-city"><%= flight.destination %></div>
+      </div>
+      <ul class="summary-details">
+        <li><span>Flight</span><strong><%= flight.flight_number %></strong></li>
+        <li><span>Departure</span><strong><%= new Date(flight.departure_time).toLocaleString('en-GB', {dateStyle:'medium', timeStyle:'short'}) %></strong></li>
+        <li><span>Arrival</span><strong><%= new Date(flight.arrival_time).toLocaleString('en-GB', {dateStyle:'medium', timeStyle:'short'}) %></strong></li>
+        <li><span>Class</span><strong class="badge-<%= flight.class %>"><%= flight.class %></strong></li>
+        <li><span>Base Price</span><strong>$<%= parseFloat(flight.price).toFixed(2) %>/person</strong></li>
+      </ul>
+      <div class="summary-total" id="totalDisplay">Total: $<%= parseFloat(flight.price).toFixed(2) %></div>
+    </div>
+
+    <!-- Booking Form -->
+    <form class="booking-form card" action="/booking/<%= flight.id %>" method="POST">
+      <h3>Passenger Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <input type="text" id="first_name" name="first_name" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <input type="text" id="last_name" name="last_name" placeholder="Doe" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="+234 800 000 0000" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="passengers">Passengers</label>
+          <select id="passengers" name="passengers" onchange="updateTotal(<%= flight.price %>)">
+            <% [1,2,3,4].forEach(n => { %>
+            <option value="<%= n %>"><%= n %> Adult<%= n > 1 ? 's' : '' %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="class">Cabin Class</label>
+          <select id="class" name="class">
+            <option value="economy">Economy</option>
+            <option value="business">Business</option>
+            <option value="first">First Class</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-notice">
+        <span>🔒</span> Your payment details are encrypted and secure.
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">Confirm Booking</button>
+    </form>
+
+  </div>
+</section>
+
+<script>
+function updateTotal(basePrice) {
+  const pax = document.getElementById('passengers').value;
+  const total = (basePrice * pax).toFixed(2);
+  document.getElementById('totalDisplay').textContent = `Total: $${total}`;
+}
+</script>
+
+<%- include('../partials/footer') %>
