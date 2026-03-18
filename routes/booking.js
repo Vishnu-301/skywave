@@ -6,7 +6,7 @@ const router = express.Router();
 // Booking form
 router.get('/:flightId', async (req, res, next) => {
   try {
-    const [rows] = await getFlightById(req.params.flightId);
+    const { rows } = await getFlightById(req.params.flightId);
     if (!rows.length) return res.status(404).render('404', { title: '404 | SkyWave' });
     res.render('booking/form', {
       title: 'Book Flight | SkyWave',
@@ -23,7 +23,7 @@ router.post('/:flightId', async (req, res, next) => {
   const flightId = req.params.flightId;
 
   try {
-    const [rows] = await getFlightById(flightId);
+    const { rows } = await getFlightById(flightId);
     if (!rows.length) return res.status(404).render('404', { title: '404 | SkyWave' });
 
     const flight = rows[0];
@@ -50,7 +50,7 @@ router.post('/:flightId', async (req, res, next) => {
 // Booking confirmation
 router.get('/confirmation/:ref', async (req, res, next) => {
   try {
-    const [rows] = await getBookingByRef(req.params.ref);
+    const { rows } = await getBookingByRef(req.params.ref);
     if (!rows.length) return res.status(404).render('404', { title: '404 | SkyWave' });
     res.render('booking/confirmation', {
       title: 'Booking Confirmed | SkyWave',

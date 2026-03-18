@@ -5,13 +5,13 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const [destinations] = await getFeaturedDestinations();
+    const { rows: destinations } = await getFeaturedDestinations();
     res.render('index', {
       title: 'SkyWave — Fly Beyond Horizons',
       destinations
     });
   } catch (err) {
-    next(err);
+    next(err); 
   }
 });
 

@@ -9,7 +9,7 @@ router.get('/search', async (req, res, next) => {
   try {
     let flights = [];
     if (origin && destination && date) {
-      [flights] = await searchFlights(origin, destination, date, passengers);
+      ({ rows: flights } = await searchFlights(origin, destination, date, passengers));
     }
     res.render('flights/search', {
       title: 'Search Flights | SkyWave',
@@ -24,7 +24,7 @@ router.get('/search', async (req, res, next) => {
 // All flights listing
 router.get('/', async (req, res, next) => {
   try {
-    const [flights] = await getAllFlights();
+    const { rows: flights } = await getAllFlights();
     res.render('flights/index', {
       title: 'All Flights | SkyWave',
       flights
@@ -37,7 +37,7 @@ router.get('/', async (req, res, next) => {
 // Single flight detail
 router.get('/:id', async (req, res, next) => {
   try {
-    const [rows] = await getFlightById(req.params.id);
+    const { rows } = await getFlightById(req.params.id);
     if (!rows.length) return res.status(404).render('404', { title: '404 | SkyWave' });
     res.render('flights/detail', {
       title: `Flight ${rows[0].flight_number} | SkyWave`,
